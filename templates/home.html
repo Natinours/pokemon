@@ -1,0 +1,39 @@
+{{define "title"}}Accueil{{end}}
+
+{{define "head"}}
+<link rel="stylesheet" href="/static/css/home.css">
+{{end}}
+
+{{define "content"}}
+<div class="hero">
+    <h1>Bienvenue sur Pokémon TCG Collection</h1>
+    <p class="subtitle">Explorez l'univers des cartes Pokémon</p>
+    
+    <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Rechercher une carte..." id="searchInput">
+        <button class="search-btn" onclick="search()">Rechercher</button>
+    </div>
+
+    <div class="features">
+        <div class="feature-card">
+            <h3>Collection complète</h3>
+            <p>Accédez à toutes les cartes Pokémon de la série Épée et Bouclier</p>
+            <a href="/collection" class="feature-btn">Voir la collection</a>
+        </div>
+        <div class="feature-card">
+            <h3>Catégories</h3>
+            <p>Explorez les différentes séries et extensions</p>
+            <a href="/categories" class="feature-btn">Voir les catégories</a>
+        </div>
+        <div class="feature-card">
+            <h3>Vos favoris</h3>
+            <p>Gérez votre collection personnelle</p>
+            <a href="/favorites" class="feature-btn">Voir les favoris</a>
+        </div>
+    </div>
+</div>
+{{end}}
+
+{{define "scripts"}}
+<script src="/static/js/home.js"></script>
+{{end}} 

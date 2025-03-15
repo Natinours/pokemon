@@ -1,0 +1,105 @@
+{{define "title"}}Recherche{{end}}
+
+{{define "head"}}
+<link rel="stylesheet" href="/static/css/collection.css">
+{{end}}
+
+{{define "content"}}
+<div class="collection-header">
+    <h1>Recherche de cartes Pokémon</h1>
+    
+    <div class="search-container">
+        <div class="search-bar">
+            <input type="text" 
+                   class="search-input" 
+                   id="searchInput" 
+                   placeholder="Rechercher une carte par son nom..."
+                   value="{{.Query}}"
+                   autofocus>
+            <button class="search-btn" onclick="performSearch()">Rechercher</button>
+        </div>
+    </div>
+
+    <div class="filters">
+        <div class="filter-group">
+            <label for="typeFilter">Type :</label>
+            <select id="typeFilter" onchange="applyFilters()">
+                <option value="">Tous les types</option>
+                <option value="Plante">🌿 Plante</option>
+                <option value="Feu">🔥 Feu</option>
+                <option value="Eau">💧 Eau</option>
+                <option value="Électrique">⚡ Électrique</option>
+                <option value="Combat">👊 Combat</option>
+                <option value="Psy">🔮 Psy</option>
+                <option value="Normal">⭐ Normal</option>
+                <option value="Ténèbres">🌑 Ténèbres</option>
+                <option value="Acier">⚙️ Acier</option>
+                <option value="Dragon">🐉 Dragon</option>
+                <option value="Fée">✨ Fée</option>
+            </select>
+        </div>
+    </div>
+
+    {{if .Results}}
+        <div class="results-info">
+            {{len .Results}} résultat(s) trouvé(s) pour "{{.Query}}"
+        </div>
+    {{end}}
+</div>
+
+{{if .Results}}
+    <div class="card-grid">
+        {{range .Results}}
+        <div class="card" data-types="{{range $i, $t := .Types}}{{if $i}},{{end}}{{$t}}{{end}}">
+            <div class="card-clickable" onclick='openModal("{{.Set.ID}}", "{{.Number}}")'>
+                <div class="card-image-container">
+                    <img src="{{.Image}}" 
+                         alt="{{.Name}}"
+                         loading="lazy"
+                         onerror="handleImageError(this)"
+                         onload="handleImageLoad(this)">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">{{.Name}}</h3>
+                    <p class="card-set">{{.Set.Name}}</p>
+                    {{if .Types}}
+                    <div class="card-types">
+                        {{range .Types}}
+                        <span class="type-badge type-{{.}}">{{.}}</span>
+                        {{end}}
+                    </div>
+                    {{end}}
+                    {{if .HP}}
+                    <p class="card-hp">HP: {{.HP}}</p>
+                    {{end}}
+                    {{if .Rarity}}
+                    <p class="card-rarity">{{.Rarity}}</p>
+                    {{end}}
+                </div>
+            </div>
+            <button class="favorite-btn" data-card-id="{{.ID}}" onclick="toggleFavorite('{{.ID}}', event)">
+                ♡ Ajouter aux favoris
+            </button>
+        </div>
+        {{end}}
+    </div>
+{{else if .Query}}
+    <div class="no-results">
+        <p>Aucun résultat trouvé pour "{{.Query}}"</p>
+        <p>Essayez avec d'autres termes ou vérifiez l'orthographe.</p>
+    </div>
+{{end}}
+
+<!-- Modal pour l'image en grand -->
+<div class="modal" id="imageModal" onclick="closeModal(event)">
+    <button class="close-modal" onclick="closeModal(event)">&times;</button>
+    <div class="modal-content">
+        <img src="" alt="Carte Pokémon" class="modal-image" id="modalImage">
+    </div>
+</div>
+{{end}}
+
+{{define "scripts"}}
+<script src="/static/js/collection.js"></script>
+<script src="/static/js/search.js"></script>
+{{end}} 

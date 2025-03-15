@@ -1,0 +1,102 @@
+{{define "title"}}Favoris{{end}}
+
+{{define "head"}}
+<link rel="stylesheet" href="/static/css/favorites.css">
+{{end}}
+
+{{define "content"}}
+<div class="favorites-page">
+    <h1>Vos cartes favorites</h1>
+    <div id="favorites-container">
+        <div class="favorites-controls">
+            <button class="control-btn" onclick="removeAllFavorites()">
+                Tout supprimer
+            </button>
+        </div>
+        <div class="card-grid" id="favorites-grid">
+            <!-- Les cartes seront chargées dynamiquement via JavaScript -->
+        </div>
+        <div class="empty-favorites" id="empty-message" style="display: none;">
+            <div class="empty-message">
+                <h2>Aucune carte favorite</h2>
+                <p>Ajoutez des cartes à vos favoris pour les retrouver ici.</p>
+                <a href="/collection" class="browse-btn">Parcourir la collection</a>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}
+
+{{define "scripts"}}
+<script>
+// Charger les favoris depuis le localStorage
+function loadFavorites() {
+    const favoritesGrid = document.getElementById('favorites-grid');
+    const emptyMessage = document.getElementById('empty-message');
+    const favorites = JSON.parse(localStorage.getItem('pokemon_favorites') || '[]');
+
+    if (favorites.length === 0) {
+        favoritesGrid.style.display = 'none';
+        emptyMessage.style.display = 'block';
+        return;
+    }
+
+    favoritesGrid.style.display = 'grid';
+    emptyMessage.style.display = 'none';
+    favoritesGrid.innerHTML = favorites.map(card => `
+        <div class="card" data-card-id="${card.id}">
+            <div class="card-image-container">
+                <img src="${card.image}" alt="${card.name}" loading="lazy">
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">${card.name}</h3>
+                <p class="card-set">${card.set}</p>
+            </div>
+            <button class="favorite-btn active" onclick="removeFavorite('${card.id}')">
+                ♥ Retirer des favoris
+            </button>
+        </div>
+    `).join('');
+}
+
+// Supprimer une carte des favoris
+function removeFavorite(cardId) {
+    const favorites = JSON.parse(localStorage.getItem('pokemon_favorites') || '[]');
+    const updatedFavorites = favorites.filter(card => card.id !== cardId);
+    localStorage.setItem('pokemon_favorites', JSON.stringify(updatedFavorites));
+    
+    // Mettre à jour l'affichage
+    loadFavorites();
+
+    // Synchroniser avec le serveur
+    fetch('/api/favorites/remove', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ cardId })
+    }).catch(error => console.error('Erreur:', error));
+}
+
+// Supprimer tous les favoris
+function removeAllFavorites() {
+    if (!confirm('Êtes-vous sûr de vouloir supprimer tous vos favoris ?')) {
+        return;
+    }
+
+    localStorage.setItem('pokemon_favorites', '[]');
+    loadFavorites();
+
+    // Synchroniser avec le serveur
+    fetch('/api/favorites/remove-all', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).catch(error => console.error('Erreur:', error));
+}
+
+// Charger les favoris au chargement de la page
+document.addEventListener('DOMContentLoaded', loadFavorites);
+</script>
+{{end}} 

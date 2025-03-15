@@ -1,0 +1,39 @@
+{{define "layout"}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{template "title"}} - Pokémon TCG</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    {{block "head" .}}{{end}}
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="/static/img/pokemon-logo.png" alt="Pokémon TCG" class="logo">
+            <ul class="nav-links">
+                <li><a href="/">Accueil</a></li>
+                <li><a href="/collection">Collection</a></li>
+                <li><a href="/categories">Catégories</a></li>
+                <li><a href="/favorites">Favoris</a></li>
+                <li><a href="/about">À propos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {{template "content" .}}
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Pokémon TCG Collection. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+    {{block "scripts" .}}{{end}}
+</body>
+</html>
+{{end}} 

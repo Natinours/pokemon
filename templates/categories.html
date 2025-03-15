@@ -1,0 +1,54 @@
+{{define "title"}}Catégories{{end}}
+
+{{define "head"}}
+<link rel="stylesheet" href="/static/css/collection.css">
+<link rel="stylesheet" href="/static/css/categories.css">
+{{end}}
+
+{{define "content"}}
+<div class="collection-header">
+    <h1>Séries Pokémon TCG</h1>
+    <div class="series-count">
+        {{$count := len .SeriesList}}
+        <span class="count-number">{{$count}}</span> série{{if gt $count 1}}s{{end}} disponible{{if gt $count 1}}s{{end}}
+    </div>
+</div>
+
+<div class="card-grid">
+    {{range .SeriesList}}
+    <div class="card" onclick="window.location.href='/collection?series={{.ID}}'">
+        <div class="card-image-container">
+            <img src="/static/img/series/{{.ID}}.png" 
+                 alt="{{.Name}}" 
+                 class="series-image"
+                 onerror="handleSeriesImageError(this, '{{.ID}}')">
+        </div>
+        <div class="card-content">
+            <h3 class="card-title">{{.Name}}</h3>
+            <p class="card-set">Série {{.ID}}</p>
+            <div class="card-info">
+                <span class="series-count-badge">{{.CardCount}} cartes</span>
+            </div>
+        </div>
+    </div>
+    {{end}}
+</div>
+{{end}}
+
+{{define "scripts"}}
+<script>
+function handleSeriesImageError(img, seriesId) {
+    const formats = ['png', 'jpg', 'webp'];
+    let currentFormat = img.src.split('.').pop();
+    let formatIndex = formats.indexOf(currentFormat);
+    
+    if (formatIndex < formats.length - 1) {
+        let nextFormat = formats[formatIndex + 1];
+        img.src = `/static/img/series/${seriesId}.${nextFormat}`;
+    } else {
+        img.src = '/static/img/series-placeholder.png';
+    }
+}
+</script>
+<script src="/static/js/categories.js"></script>
+{{end}}

@@ -1,0 +1,42 @@
+:root {
+    /* Couleurs principales */
+    --color-primary: #ff3366;
+    --color-primary-light: #ff6b6b;
+    --color-background: #1a1a2e;
+    --color-background-light: rgba(255, 255, 255, 0.1);
+    --color-text: #ffffff;
+    --color-text-muted: rgba(255, 255, 255, 0.8);
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(45deg, var(--color-primary), var(--color-primary-light));
+    --gradient-background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    --gradient-overlay: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.8));
+
+    /* Espacements */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+
+    /* Bordures */
+    --border-radius-sm: 8px;
+    --border-radius-md: 15px;
+    --border-radius-lg: 30px;
+
+    /* Ombres */
+    --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.4);
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.4s ease;
+
+    /* Breakpoints */
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+} 

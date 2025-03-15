@@ -1,0 +1,425 @@
+/* Styles pour la page collection */
+
+/* En-tête et filtres */
+.collection-header {
+    padding: 2rem;
+    text-align: center;
+}
+
+.collection-header h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.filters {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    gap: 20px;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 15px;
+    border-radius: 10px;
+}
+
+.filter-group label {
+    color: white;
+    font-weight: 500;
+    font-size: 1.1em;
+}
+
+.filter-group select {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: #2a2a2a;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    min-width: 150px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 20px;
+    padding-right: 32px;
+}
+
+.filter-group select:focus {
+    outline: none;
+    border-color: #ff6b6b;
+    box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+}
+
+.filter-group select option {
+    background: #2a2a2a;
+    color: white;
+    padding: 8px;
+}
+
+/* Badges de type */
+.type-badge {
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.8em;
+    background: #444;
+}
+
+/* Couleurs des types */
+.type-Plante { background: #78c850; }
+.type-Feu { background: #f08030; }
+.type-Eau { background: #6890f0; }
+.type-Électrique { background: #f8d030; }
+.type-Combat { background: #c03028; }
+.type-Psy { background: #f85888; }
+.type-Normal { background: #a8a878; }
+.type-Ténèbres { background: #705848; }
+.type-Acier { background: #b8b8d0; }
+.type-Dragon { background: #7038f8; }
+.type-Fée { background: #ee99ac; }
+
+/* Grille de cartes */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    background: #2a2a2a;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+}
+
+.card-clickable {
+    flex: 1;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card-clickable:hover {
+    transform: translateY(-5px);
+}
+
+.card-image-container {
+    background: #1a1a1a;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.card-image-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card-image-container:hover::before {
+    opacity: 1;
+}
+
+.card img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+    backface-visibility: hidden;
+    object-fit: contain;
+}
+
+.card img[src*="card-placeholder"] {
+    opacity: 0.7;
+    filter: grayscale(100%);
+    mix-blend-mode: luminosity;
+    background: #2a2a2a;
+    padding: 20px;
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+}
+
+.card-content {
+    padding: 15px;
+    background: #333;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 10px;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card-title {
+    color: #fff;
+    margin: 0 0 8px 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.card-set {
+    color: #ccc;
+    margin: 0 0 5px 0;
+    font-size: 1em;
+    font-style: italic;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+.card-info {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 1rem;
+}
+
+.card-types {
+    display: flex;
+    gap: 5px;
+    margin: 0;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.pagination-btn {
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    transition: background 0.3s;
+}
+
+.pagination-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.pagination-info {
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+/* Bouton favoris */
+.favorite-btn {
+    width: 100%;
+    padding: 0.8rem;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.favorite-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.favorite-btn.active {
+    background: linear-gradient(45deg, #ff3366, #ff6b6b);
+}
+
+.favorite-btn.active:hover {
+    background: linear-gradient(45deg, #ff6b6b, #ff3366);
+}
+
+/* Styles pour la modale */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    overflow: auto;
+}
+
+.modal.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90vh;
+    margin: auto;
+}
+
+.modal-image {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.close-modal {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 10px;
+    z-index: 1001;
+}
+
+.close-modal:hover {
+    color: #ff3366;
+}
+
+.series-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.series-btn {
+    background: #333;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.series-btn:hover {
+    background: #444;
+    transform: translateY(-2px);
+}
+
+.series-btn.active {
+    background: #ff3366;
+    font-weight: bold;
+}
+
+.card-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 0.9em;
+    color: #ccc;
+}
+
+.card-hp {
+    color: #ff3366;
+    font-weight: bold;
+    margin: 0;
+}
+
+.card-rarity {
+    color: #ffd700;
+    margin: 0;
+    font-style: italic;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .filter-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+/* Styles pour les notifications */
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    background: #333;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    max-width: 300px;
+}
+
+.notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.notification.success {
+    background: linear-gradient(45deg, #28a745, #20c997);
+}
+
+.notification.error {
+    background: linear-gradient(45deg, #dc3545, #ff4444);
+}
+
+.notification-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.view-favorites-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    transition: background 0.2s ease;
+}
+
+.view-favorites-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+} 

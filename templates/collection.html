@@ -1,0 +1,106 @@
+{{define "title"}}Collection{{end}}
+
+{{define "head"}}
+<link rel="stylesheet" href="/static/css/collection.css">
+{{end}}
+
+{{define "content"}}
+<div class="collection-header">
+    <h1>Collection de cartes Pokémon</h1>
+    <div class="series-selector">
+        <a href="?series=" class="series-btn {{if not .SelectedSeries}}active{{end}}">Toutes les séries</a>
+        <a href="?series=swsh1" class="series-btn {{if eq .SelectedSeries "swsh1"}}active{{end}}">Épée et Bouclier</a>
+        <a href="?series=swsh2" class="series-btn {{if eq .SelectedSeries "swsh2"}}active{{end}}">Clash des Rebelles</a>
+        <a href="?series=swsh3" class="series-btn {{if eq .SelectedSeries "swsh3"}}active{{end}}">Ténèbres Embrasées</a>
+        <a href="?series=swsh4" class="series-btn {{if eq .SelectedSeries "swsh4"}}active{{end}}">Voltage Éclatant</a>
+        <a href="?series=swsh5" class="series-btn {{if eq .SelectedSeries "swsh5"}}active{{end}}">Styles de Combat</a>
+        <a href="?series=swsh6" class="series-btn {{if eq .SelectedSeries "swsh6"}}active{{end}}">Règne de Glace</a>
+        <a href="?series=swsh7" class="series-btn {{if eq .SelectedSeries "swsh7"}}active{{end}}">Évolution Céleste</a>
+        <a href="?series=swsh8" class="series-btn {{if eq .SelectedSeries "swsh8"}}active{{end}}">Poing de Fusion</a>
+        <a href="?series=swsh9" class="series-btn {{if eq .SelectedSeries "swsh9"}}active{{end}}">Étoiles Brillantes</a>
+        <a href="?series=swsh10" class="series-btn {{if eq .SelectedSeries "swsh10"}}active{{end}}">Origine Perdue</a>
+    </div>
+
+    <div class="filters">
+        <div class="filter-group">
+            <label for="typeFilter">Type :</label>
+            <select id="typeFilter" onchange="applyFilters()">
+                <option value="">Tous les types</option>
+                <option value="Plante">🌿 Plante</option>
+                <option value="Feu">🔥 Feu</option>
+                <option value="Eau">💧 Eau</option>
+                <option value="Électrique">⚡ Électrique</option>
+                <option value="Combat">👊 Combat</option>
+                <option value="Psy">🔮 Psy</option>
+                <option value="Normal">⭐ Normal</option>
+                <option value="Ténèbres">🌑 Ténèbres</option>
+                <option value="Acier">⚙️ Acier</option>
+                <option value="Dragon">🐉 Dragon</option>
+                <option value="Fée">✨ Fée</option>
+            </select>
+        </div>
+    </div>
+
+    {{if .SelectedSeries}}
+        <h2>Série : {{getSetName .SelectedSeries}}</h2>
+    {{end}}
+</div>
+
+<div class="card-grid">
+    {{range .Cards}}
+    <div class="card" data-types="{{range $i, $t := .Types}}{{if $i}},{{end}}{{$t}}{{end}}">
+        <div class="card-clickable" onclick='openModal("{{.Set.ID}}", "{{index (split .ID "-") 1}}")'>
+            <div class="card-image-container">
+                <img src="{{.Image}}" 
+                     alt="{{.Name}}"
+                     loading="lazy"
+                     onerror="handleImageError(this)"
+                     onload="handleImageLoad(this)">
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">{{.Name}}</h3>
+                <p class="card-set">{{.Set.Name}}</p>
+                {{if .Types}}
+                <div class="card-types">
+                    {{range .Types}}
+                    <span class="type-badge type-{{.}}">{{.}}</span>
+                    {{end}}
+                </div>
+                {{end}}
+                {{if .HP}}
+                <p class="card-hp">HP: {{.HP}}</p>
+                {{end}}
+                {{if .Rarity}}
+                <p class="card-rarity">{{.Rarity}}</p>
+                {{end}}
+            </div>
+        </div>
+        <button class="favorite-btn" data-card-id="{{.ID}}" onclick="toggleFavorite('{{.ID}}', event)">
+            ♡ Ajouter aux favoris
+        </button>
+    </div>
+    {{end}}
+</div>
+
+<!-- Modal pour l'image en grand -->
+<div class="modal" id="imageModal" onclick="closeModal(event)">
+    <button class="close-modal" onclick="closeModal(event)">&times;</button>
+    <div class="modal-content">
+        <img src="" alt="Carte Pokémon" class="modal-image" id="modalImage">
+    </div>
+</div>
+
+<div class="pagination">
+    {{if gt .CurrentPage 1}}
+    <a href="?page={{sub .CurrentPage 1}}{{if .SelectedSeries}}&series={{.SelectedSeries}}{{end}}" class="pagination-btn">&laquo; Précédent</a>
+    {{end}}
+    <span class="pagination-info">Page {{.CurrentPage}} sur {{.TotalPages}}</span>
+    {{if lt .CurrentPage .TotalPages}}
+    <a href="?page={{add .CurrentPage 1}}{{if .SelectedSeries}}&series={{.SelectedSeries}}{{end}}" class="pagination-btn">Suivant &raquo;</a>
+    {{end}}
+</div>
+{{end}}
+
+{{define "scripts"}}
+<script src="/static/js/collection.js"></script>
+{{end}} 
