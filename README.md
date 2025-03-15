@@ -75,27 +75,3 @@ http://localhost:8080
 ## 🔄 Mise à jour des données
 
 Les données des cartes sont automatiquement mises à jour via l'API TCGdex. Le système de cache intégré assure des performances optimales tout en maintenant les données à jour.
-
-## 🤝 Contribution
-
-Les contributions sont les bienvenues ! N'hésitez pas à :
-
-1. Fork le projet
-2. Créer une branche pour votre fonctionnalité
-3. Commiter vos changements
-4. Pousser vers la branche
-5. Ouvrir une Pull Request
-
-## 📄 Licence
-
-Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
-
-## 🙏 Remerciements
-
-- [TCGdex API](https://www.tcgdex.net/) pour les données des cartes
-- La communauté Pokémon TCG pour son soutien
-- Tous les contributeurs du projet
-
-## 📞 Contact
-
-Pour toute question ou suggestion, n'hésitez pas à ouvrir une issue sur GitHub. 
