@@ -38,7 +38,7 @@ Une application web moderne pour explorer et gérer votre collection de cartes P
 1. Clonez le dépôt :
 ```bash
 git clone https://github.com/Natinours/pokemon.git
-cd pokemon-tcg-collection
+cd pokemon
 ```
 
 2. Installez les dépendances :
